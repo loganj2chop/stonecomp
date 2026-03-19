@@ -178,6 +178,8 @@ def main():
 
     matches = blocks[blocks["name_score"] >= args.threshold].copy()
     print(f"Matched pairs (name threshold={args.threshold}): {len(matches)}")
+    cols_to_drop = ['name_score', 'dob_diff_days', 'name_clean_R', 'dob_R', 'name_clean_S', 'S_row_id', 'name']
+    matches = matches.drop(columns=[col for col in cols_to_drop if col in matches.columns])
     matches.to_csv(matches_out, index=False)
     print(f"Wrote {matches_out}")
 
